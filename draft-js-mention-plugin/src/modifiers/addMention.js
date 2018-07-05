@@ -13,7 +13,7 @@ const addMention = (editorState, mention, mentionPrefix, mentionTrigger, entityM
 
   // get selection of the @mention search text
   const mentionTextSelection = currentSelectionState.merge({
-    anchorOffset: begin,
+    anchorOffset: begin - 1,
     focusOffset: end,
   });
 

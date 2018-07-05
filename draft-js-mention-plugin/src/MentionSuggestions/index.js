@@ -130,7 +130,7 @@ export class MentionSuggestions extends Component {
          && new RegExp(String.raw({ raw: `${escapeRegExp(this.props.mentionTrigger)}` }), 'g').test(plainText)
          && anchorOffset <= end)
          || // @ is the first character
-           (anchorOffset > start + this.props.mentionTrigger.length
+           (anchorOffset >= start + this.props.mentionTrigger.length
          && anchorOffset <= end) // @ is in the text or at the end
       ));
 
@@ -173,11 +173,10 @@ export class MentionSuggestions extends Component {
 
   onSearchChange = (editorState, selection, activeOffsetKey, lastActiveOffsetKey) => {
     const { word } = getSearchText(editorState, selection, this.props.mentionTrigger);
-    const searchValue = word.substring(this.props.mentionTrigger.length, word.length);
 
-    if (this.lastSearchValue !== searchValue || activeOffsetKey !== lastActiveOffsetKey) {
-      this.lastSearchValue = searchValue;
-      this.props.onSearchChange({ value: searchValue });
+    if (this.lastSearchValue !== word || activeOffsetKey !== lastActiveOffsetKey) {
+      this.lastSearchValue = word;
+      this.props.onSearchChange({ value: word });
     }
   };
 
