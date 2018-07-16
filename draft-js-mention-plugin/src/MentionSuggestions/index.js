@@ -124,7 +124,7 @@ export class MentionSuggestions extends Component {
     const selectionIsInsideWord = leaves
       .filter((leave) => leave !== undefined)
       .map(({ start, end }) => {
-        const charBeforeAnchor = plainText.charAt(anchorOffset - 1); // warning multiple lines issue here
+        const charBeforeAnchor = plainText.charAt(anchorOffset - 1);
 
         return (start === 0
          && anchorOffset === this.props.mentionTrigger.length
@@ -281,6 +281,11 @@ export class MentionSuggestions extends Component {
 
     if (this.props.onOpen) {
       this.props.onOpen();
+    }
+
+    // fix isOpened status when cursor come back from next lines
+    if (!this.props.store.getIsOpened()) {
+      this.props.store.setIsOpened(true);
     }
   };
 
