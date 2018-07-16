@@ -1,6 +1,6 @@
 const mentions = [
   {
-    name: 'Matthew Russell',
+    name: 'Quentin Brunet',
     link: 'https://twitter.com/mrussell247',
     avatar: 'https://pbs.twimg.com/profile_images/517863945/mattsailing_400x400.jpg',
   },

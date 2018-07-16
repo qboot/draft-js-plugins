@@ -5,7 +5,7 @@ const getWordAt = (string, position, mentionTrigger = '@') => {
   // eslint-disable-next-line no-bitwise
   const pos = Number(position) >>> 0;
 
-  const left = str.slice(0, pos + 1).lastIndexOf(mentionTrigger) + 1;
+  const left = str.slice(0, pos).lastIndexOf(mentionTrigger) + 1;
 
   // Return the word, using the located bounds to extract it from the string.
   return {

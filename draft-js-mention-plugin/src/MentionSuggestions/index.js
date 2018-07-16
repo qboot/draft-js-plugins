@@ -123,16 +123,20 @@ export class MentionSuggestions extends Component {
     const plainText = editorState.getCurrentContent().getPlainText();
     const selectionIsInsideWord = leaves
       .filter((leave) => leave !== undefined)
-      .map(({ start, end }) => (
-        (start === 0
+      .map(({ start, end }) => {
+        const charBeforeAnchor = plainText.charAt(anchorOffset - 1); // warning multiple lines issue here
+
+        return (start === 0
          && anchorOffset === this.props.mentionTrigger.length
          && plainText.charAt(anchorOffset) !== this.props.mentionTrigger
          && new RegExp(String.raw({ raw: `${escapeRegExp(this.props.mentionTrigger)}` }), 'g').test(plainText)
          && anchorOffset <= end)
          || // @ is the first character
-           (anchorOffset >= start + this.props.mentionTrigger.length
-         && anchorOffset <= end) // @ is in the text or at the end
-      ));
+           (!/\s/.test(charBeforeAnchor)
+         && charBeforeAnchor !== undefined
+         && anchorOffset >= start + this.props.mentionTrigger.length
+         && anchorOffset <= end); // @ is in the text or at the end
+      });
 
     if (selectionIsInsideWord.every((isInside) => isInside === false)) return removeList();
 

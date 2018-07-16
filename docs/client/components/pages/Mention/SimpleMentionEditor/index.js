@@ -10,7 +10,9 @@ export default class SimpleMentionEditor extends Component {
   constructor(props) {
     super(props);
 
-    this.mentionPlugin = createMentionPlugin();
+    this.mentionPlugin = createMentionPlugin({
+      entityMutability: 'IMMUTABLE',
+    });
   }
 
   state = {
